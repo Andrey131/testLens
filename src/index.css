@@ -1,13 +1,242 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font: 14px "Century Gothic", Futura, sans-serif;
+  margin: 20px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body, input, select, textarea {
+	font-family: "Roboto", Helvetica, sans-serif;
+	font-weight: 400;
+	line-height: 1.65;
+	font-size: 1em;
+	color: #7b7b7b;
+}
+
+.bar {
+	position: fixed;
+	top: 0;
+	width: 22.5em;
+	height: 100%;
+	background: #fff;
+	outline: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	text-align: right;
+	visibility: visible;
+	z-index: 10000;
+	right: 0;
+
+}
+
+
+.barHead {
+	padding: 3em 2.25em 1.75em 2.25em ;
+}
+
+	.barHead h1 {
+		font-size: 2.25em;
+		font-weight: 700;
+	}
+
+.barFoot {
+	padding: 2.25em 2.25em 1em 2.25em ;
+}
+
+.barFoot .copyright {
+		list-style: none;
+		padding: 0;
+	}
+
+	.barFoot .copyright li {
+			display: inline-block;
+			font-size: 0.8em;
+			margin-left: 0.35em;
+			padding: 0;
+		}
+
+		.barFoot .copyright li:first-child {
+				margin-left: 0;
+			}
+
+.barBody{
+  display: -moz-flex;
+		display: -webkit-flex;
+		display: -ms-flex;
+		display: flex;
+		-moz-flex-wrap: wrap;
+		-webkit-flex-wrap: wrap;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+		padding: 0 0.75em;
+}
+
+.barBody article{
+position: relative;
+			width: 50%;
+			background: #101010;
+			outline: 0;
+}
+
+.barBodyImage{
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				display: block;
+				position: relative;
+				border: 0;
+				outline: 0;
+}
+
+
+
+.barBody article .barBodyImage::before{
+  pointer-events: none;
+
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 0 2px #00D3B7;
+    opacity: 0;
+    z-index: 1;
+}
+
+.barBody article.active .barBodyImage::before{
+	opacity: 1;
+}
+
+.barBodyImage img{
+  display: block;
+  width: 100%;
+}
+
+
+
+
+.view{
+  width: calc(100% - 22.5em);
+  height: 100%;
+  position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
+.activeImage{
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    z-index: 1;
+}
+
+
+.caption{
+				padding: 2em 2em 0.75em 2em ;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				color: rgba(255, 255, 255, 0.5);
+				z-index: 1;
+}
+
+.bigImage{
+				transition: opacity 0.5s ease-in-out;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: left center; 
+				background-image: url(/images/fulls/1.jpg); 
+				opacity: 1;
+
+}
+
+.activeImage::before{
+				transition: opacity 0.5s ease-in-out;
+				content: '';
+				display: block;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 3em;
+				height: 3em;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: contain;
+				margin: -1.5em 0 0 -1.5em;
+				opacity: 0;
+}
+
+
+.nav{
+	pointer-events: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 2;
+}
+
+
+.nav::before{
+				content: '';
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+}
+
+
+.toggle{
+	position: absolute;
+	top: 0;
+	width: 4em;
+	height: 4em;
+	background-image: url(/images/nav/close.svg);
+	background-repeat: no-repeat;
+	background-size: 64px 64px;
+	cursor: pointer;
+	z-index: 1;
+	right: 0;
+	background-position: calc(100% - 0.75em) 0.75em;
+}
+
+.nav-next, .nav-previous{
+	position: absolute;
+	top: 50%;
+	width: 6em;
+	height: 6em;
+	margin-top: -3em;
+	background-image: url(/images/nav/arrow.svg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	cursor: pointer;
+}
+
+
+.nav-previous{
+	-moz-transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	-ms-transform: scaleX(-1);
+	transform: scaleX(-1);
+	left: 0;
+}
+
+.nav-next{
+	right: 0;
+}
+
+
+.active a::before{
+	opacity: 1;
 }
