@@ -64,50 +64,10 @@ class BarHead extends React.Component {
 
 class BarBody extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.imageChanger = this.imageChanger.bind(this);
-    this.state = {
-      images: Array(12).fill(null),
-    };
-
-    for(let i=1; i<=12; i++){
- 
-     this.state.images[i-1]={
-        ImageSrc: 'images/mini/'+i+'.jpg',
-        ImageHref: 'images/fulls/'+i+'.jpg',
-        ImageActive:  (i==1)?"active":undefined,
-        onClick: () => this.imageChanger(i)
-        }
-    }
-  }
-
-  imageChanger(i){
-    const images = this.state.images;
-
-    if(images[i-1].ImageActive=='active'){
-    }
-
-    else{
-
-     for(let j=0; j<images.length; j++){
-       if(images[j].ImageActive=="active"){
-        images[j].ImageActive=undefined;
-       }
-     }
-
-     images[i-1].ImageActive='active';
-     document.getElementsByClassName("bigImage")[0].style.backgroundImage = "url(./images/fulls/"+i+".jpg)";
-     this.setState({
-       images: images
-     });
-    }
-  }
-
   render() {
     return (
       <section className="barBody">
-        {this.state.images.map((item)=>{
+        {this.props.images.map((item)=>{
           return (
             <BarBodyImage 
               ImageSrc={item.ImageSrc} 
@@ -143,7 +103,7 @@ class Bar extends React.Component {
     return (
       <div className="bar">
         <BarHead />
-        <BarBody />
+        <BarBody images={this.props.images}/>
         <BarFoot />
       </div>
     );
@@ -157,7 +117,7 @@ class View extends React.Component {
     return (
       <div className="view">
         <div className="nav">
-          <div className="nav-next"></div>
+          <div className="nav-next" ></div>
           <div className="nav-previous"></div>
           <div className="toggle"></div>
         </div>
@@ -177,13 +137,84 @@ class View extends React.Component {
 }
 
 
+class Manager extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      images: Array(12).fill(null),
+    };
+
+    for(let i=1; i<=12; i++){
+ 
+      this.state.images[i-1]={
+         ImageSrc: 'images/mini/'+i+'.jpg',
+         ImageHref: 'images/fulls/'+i+'.jpg',
+         ImageActive:  (i==1)?"active":undefined,
+         onClick: () => this.imageChanger(i)
+         }
+     }
+   }
+
+   imageChanger(i){
+    const images = this.state.images;
+    alert("gwgrg");
+   if(i=="next"){
+     
+      for(let j=0; j<images.length; j++){
+        if(images[j].ImageActive=="active"){
+          images[j+1].ImageActive="active";
+          images[j].ImageActive=undefined;
+        }
+      }
+      return;
+    }
+    if(i=="previous"){
+      for(let j=0; j<images.length; j++){
+        if(images[j].ImageActive=="active"){
+          images[j-1].ImageActive="active";
+          images[j].ImageActive=undefined;
+        }
+      }
+      return;
+    }
+
+    if(images[i-1].ImageActive=='active'){
+    }
+
+    else{
+
+     for(let j=0; j<images.length; j++){
+       if(images[j].ImageActive=="active"){
+        images[j].ImageActive=undefined;
+       }
+     }
+
+     images[i-1].ImageActive='active';
+     document.getElementsByClassName("bigImage")[0].style.backgroundImage = "url(./images/fulls/"+i+".jpg)";
+     this.setState({
+       images: images
+     });
+    }
+  }
+
+
+  render(){
+    return(
+      <div className="Manager">
+        <Bar images={this.state.images}/>
+        <View images={this.state.images}/> 
+      </div>
+    )
+  }
+}
+
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Bar />
-       <View /> 
+        <Manager />
       </div>
     );
   }
