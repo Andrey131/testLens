@@ -58,13 +58,7 @@ body, input, select, textarea {
 			}
 
 .barBody{
-  display: -moz-flex;
-		display: -webkit-flex;
-		display: -ms-flex;
 		display: flex;
-		-moz-flex-wrap: wrap;
-		-webkit-flex-wrap: wrap;
-		-ms-flex-wrap: wrap;
 		flex-wrap: wrap;
 		padding: 0 0.75em;
 }
@@ -77,7 +71,6 @@ position: relative;
 }
 
 .barBodyImage{
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 				display: block;
 				position: relative;
 				border: 0;
@@ -88,7 +81,6 @@ position: relative;
 
 .barBody article .barBodyImage::before{
   pointer-events: none;
-
     content: '';
     position: absolute;
     left: 0;
@@ -117,7 +109,7 @@ position: relative;
   height: 100%;
   position: absolute;
     left: 0;
-    top: 0;
+	top: 0;
 }
 
 
@@ -143,7 +135,6 @@ position: relative;
 }
 
 .bigImage{
-				transition: opacity 0.5s ease-in-out;
 				position: absolute;
 				top: 0;
 				left: 0;
@@ -154,12 +145,9 @@ position: relative;
 				background-position: left center; 
 				background-image: url(/images/fulls/1.jpg); 
 				opacity: 1;
-
 }
 
 .activeImage::before{
-				transition: opacity 0.5s ease-in-out;
-				content: '';
 				display: block;
 				position: absolute;
 				top: 50%;
@@ -171,11 +159,13 @@ position: relative;
 				background-size: contain;
 				margin: -1.5em 0 0 -1.5em;
 				opacity: 0;
+				z-index: 1;
+
 }
 
 
 .nav{
-	pointer-events: none;
+
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -186,13 +176,13 @@ position: relative;
 
 
 .nav::before{
-				content: '';
 				display: block;
 				position: absolute;
 				top: 0;
 				left: 0;
 				width: 100%;
 				height: 100%;
+				z-index: 2;
 }
 
 
@@ -205,7 +195,7 @@ position: relative;
 	background-repeat: no-repeat;
 	background-size: 64px 64px;
 	cursor: pointer;
-	z-index: 1;
+	z-index: 2;
 	right: 0;
 	background-position: calc(100% - 0.75em) 0.75em;
 }
@@ -221,19 +211,21 @@ position: relative;
 	background-repeat: no-repeat;
 	background-size: contain;
 	cursor: pointer;
+	z-index: 3;
 }
 
 
 .nav-previous{
-	-moz-transform: scaleX(-1);
-	-webkit-transform: scaleX(-1);
-	-ms-transform: scaleX(-1);
+	position: absolute;
 	transform: scaleX(-1);
 	left: 0;
+	z-index: 3;
 }
 
 .nav-next{
+	position: absolute;
 	right: 0;
+	z-index: 3;
 }
 
 

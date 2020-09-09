@@ -116,20 +116,22 @@ class View extends React.Component {
   render() {
     return (
       <div className="view">
-        <div className="nav">
-          <div className="nav-next" ></div>
-          <div className="nav-previous"></div>
-          <div className="toggle"></div>
-        </div>
+        
 
         <div className="activeImage">
           <div className="caption">
             <h2>Diam tempus accumsan</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           </div>
-          <div className="bigImage">
-          </div>
+          <div className="bigImage"></div>
         </div>
+
+        <div className="nav">
+          <div className="nav-next" onClick = {this.props.imageChangerNext}></div>
+          <div className="nav-previous" onClick = {this.props.imageChangerPrevious}></div>
+          <div className="toggle"></div>
+        </div>
+
       </div>
     );
   }
@@ -143,7 +145,11 @@ class Manager extends React.Component {
     super(props);
     this.state = {
       images: Array(12).fill(null),
+      imageChangerNext: ()=> this.imageChanger("next"),
+      imageChangerPrevious: ()=> this.imageChanger("previous")
     };
+   
+   
 
     for(let i=1; i<=12; i++){
  
@@ -158,26 +164,46 @@ class Manager extends React.Component {
 
    imageChanger(i){
     const images = this.state.images;
-    alert("gwgrg");
-   if(i=="next"){
-     
+    let imageNumber = 1;
+
+    switch(i){
+   case "next": 
       for(let j=0; j<images.length; j++){
         if(images[j].ImageActive=="active"){
+          if(j==11){
+            images[0].ImageActive="active"
+            images[j].ImageActive=undefined;
+            imageNumber=1;
+          }
+          else{
           images[j+1].ImageActive="active";
           images[j].ImageActive=undefined;
+          imageNumber=j+2;
+          }
+          break;
         }
       }
-      return;
-    }
-    if(i=="previous"){
+      break;
+    
+case "previous":
       for(let j=0; j<images.length; j++){
         if(images[j].ImageActive=="active"){
+          if(j==0){
+            images[11].ImageActive="active"
+            images[j].ImageActive=undefined;
+            imageNumber=12;
+          }
+          else{
           images[j-1].ImageActive="active";
           images[j].ImageActive=undefined;
+          imageNumber=j;
+          }
+          break;
         }
       }
-      return;
-    }
+      break;
+    
+default:
 
     if(images[i-1].ImageActive=='active'){
     }
@@ -189,13 +215,16 @@ class Manager extends React.Component {
         images[j].ImageActive=undefined;
        }
      }
-
      images[i-1].ImageActive='active';
-     document.getElementsByClassName("bigImage")[0].style.backgroundImage = "url(./images/fulls/"+i+".jpg)";
+    }
+    imageNumber=i;
+    }
+    
+     document.getElementsByClassName("bigImage")[0].style.backgroundImage = "url(./images/fulls/"+imageNumber+".jpg)";
      this.setState({
        images: images
      });
-    }
+    
   }
 
 
@@ -203,7 +232,7 @@ class Manager extends React.Component {
     return(
       <div className="Manager">
         <Bar images={this.state.images}/>
-        <View images={this.state.images}/> 
+        <View imageChangerNext={this.state.imageChangerNext} imageChangerPrevious={this.state.imageChangerPrevious}/> 
       </div>
     )
   }
