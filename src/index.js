@@ -117,7 +117,6 @@ class View extends React.Component {
     return (
       <div className="view">
         
-
         <div className="activeImage">
           <div className="caption">
             <h2>Diam tempus accumsan</h2>
@@ -158,73 +157,71 @@ class Manager extends React.Component {
          ImageHref: 'images/fulls/'+i+'.jpg',
          ImageActive:  (i==1)?"active":undefined,
          onClick: () => this.imageChanger(i)
-         }
-     }
-   }
+        }
+      }
+    }
 
    imageChanger(i){
     const images = this.state.images;
     let imageNumber = 1;
 
     switch(i){
-   case "next": 
-      for(let j=0; j<images.length; j++){
-        if(images[j].ImageActive=="active"){
-          if(j==11){
-            images[0].ImageActive="active"
-            images[j].ImageActive=undefined;
-            imageNumber=1;
+      case "next": 
+          for(let j=0; j<images.length; j++){
+            if(images[j].ImageActive=="active"){
+              if(j==11){
+                images[0].ImageActive="active"
+                images[j].ImageActive=undefined;
+                imageNumber=1;
+              }
+              else{
+              images[j+1].ImageActive="active";
+              images[j].ImageActive=undefined;
+              imageNumber=j+2;
+              }
+              break;
+            }
           }
-          else{
-          images[j+1].ImageActive="active";
-          images[j].ImageActive=undefined;
-          imageNumber=j+2;
-          }
-          break;
-        }
-      }
       break;
     
-case "previous":
-      for(let j=0; j<images.length; j++){
-        if(images[j].ImageActive=="active"){
-          if(j==0){
-            images[11].ImageActive="active"
-            images[j].ImageActive=undefined;
-            imageNumber=12;
+      case "previous":
+          for(let j=0; j<images.length; j++){
+            if(images[j].ImageActive=="active"){
+              if(j==0){
+                images[11].ImageActive="active"
+                images[j].ImageActive=undefined;
+                imageNumber=12;
+              }
+              else{
+              images[j-1].ImageActive="active";
+              images[j].ImageActive=undefined;
+              imageNumber=j;
+              }
+              break;
+            }
           }
-          else{
-          images[j-1].ImageActive="active";
-          images[j].ImageActive=undefined;
-          imageNumber=j;
-          }
-          break;
-        }
-      }
       break;
     
-default:
+      default:
 
-    if(images[i-1].ImageActive=='active'){
-    }
+        if(images[i-1].ImageActive=='active'){
+        }
 
-    else{
-
-     for(let j=0; j<images.length; j++){
-       if(images[j].ImageActive=="active"){
-        images[j].ImageActive=undefined;
-       }
-     }
-     images[i-1].ImageActive='active';
-    }
-    imageNumber=i;
+        else{
+          for(let j=0; j<images.length; j++){
+            if(images[j].ImageActive=="active"){
+              images[j].ImageActive=undefined;
+            }
+          }
+          images[i-1].ImageActive='active';
+        }
+        imageNumber=i;
     }
     
-     document.getElementsByClassName("bigImage")[0].style.backgroundImage = "url(./images/fulls/"+imageNumber+".jpg)";
-     this.setState({
-       images: images
-     });
-    
+    document.getElementsByClassName("bigImage")[0].style.backgroundImage = "url(./images/fulls/"+imageNumber+".jpg)";
+    this.setState({
+      images: images
+    }); 
   }
 
 
