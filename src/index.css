@@ -91,6 +91,7 @@ body, input, select, textarea {
     box-shadow: inset 0 0 0 2px #00D3B7;
     opacity: 0;
     z-index: 1;
+    content: '';
 }
 
 	.barBody article.active .barBodyImage::before{
